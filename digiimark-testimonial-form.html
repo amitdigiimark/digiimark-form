@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Share Your Testimonial · DigiiMark</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&family=Inter:wght@300;400;500;600&family=Geist+Mono:wght@500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0A0A0A;
+    --orange: #FF5722;
+    --white: #FFFFFF;
+    --peach: #FFD2B8;
+    --grey-50: #FAFAFA;
+    --grey-100: #F8F8F8;
+    --grey-200: #E5E5E5;
+    --grey-300: #C4C4C4;
+    --grey-400: #7D7D7D;
+    --grey-600: #4A4A4A;
+    --grey-800: #1A1A1A;
+  }
+
+  html, body { min-height: 100vh; }
+
+  body {
+    background: #FFFFFF;
+    font-family: 'Inter', sans-serif;
+    color: var(--black);
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Background blobs */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -120px; right: -120px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(255,87,34,0.09) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -100px; left: -80px;
+    width: 340px; height: 340px;
+    background: radial-gradient(circle, rgba(255,210,184,0.30) 0%, transparent 70%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .page {
+    position: relative; z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 52px 24px 80px;
+  }
+
+  /* Logo */
+  .logo-row {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 44px;
+  }
+  .logo-dot {
+    width: 30px; height: 30px;
+    background: var(--orange);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .logo-word {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; font-size: 19px;
+    color: var(--black); letter-spacing: -0.3px;
+  }
+
+  /* Header */
+  .eyebrow {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; font-weight: 500;
+    letter-spacing: 0.13em; text-transform: uppercase;
+    color: var(--orange); margin-bottom: 12px;
+  }
+  h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 42px; line-height: 0.94;
+    color: var(--black); letter-spacing: -1.8px;
+    margin-bottom: 16px;
+  }
+  h1 span { color: var(--orange); }
+  .subhead {
+    font-size: 14px; font-weight: 300;
+    color: var(--grey-400); line-height: 1.65;
+    max-width: 400px;
+  }
+  .divider {
+    width: 40px; height: 2px;
+    background: var(--orange);
+    margin: 28px 0;
+    border-radius: 1px;
+  }
+
+  /* Progress */
+  .progress-bar {
+    display: flex; gap: 6px;
+    margin-bottom: 28px;
+  }
+  .pb-seg {
+    height: 3px; flex: 1;
+    background: var(--grey-200);
+    border-radius: 2px;
+    transition: background 0.35s ease;
+  }
+  .pb-seg.on { background: var(--orange); }
+
+  /* Cards */
+  .card {
+    background: var(--grey-50);
+    border: 0.5px solid var(--grey-200);
+    border-radius: 16px;
+    padding: 28px 28px 24px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .card-top-line {
+    position: absolute;
+    top: 0; left: 28px;
+    width: 36px; height: 2px;
+    background: var(--orange);
+    border-radius: 0 0 2px 2px;
+  }
+  .card-num {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; letter-spacing: 0.1em;
+    color: var(--grey-300); margin-bottom: 6px;
+  }
+  .card-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600; font-size: 15px;
+    color: var(--black); margin-bottom: 3px;
+  }
+  .card-hint {
+    font-size: 12px; font-weight: 300;
+    color: var(--grey-400); line-height: 1.55;
+    margin-bottom: 20px;
+  }
+
+  /* Stars */
+  .stars {
+    display: flex; gap: 8px;
+    margin-bottom: 10px;
+  }
+  .star-btn {
+    flex: 1; height: 52px;
+    background: var(--white);
+    border: 0.5px solid var(--grey-200);
+    border-radius: 10px;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 3px; cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .star-btn:hover {
+    border-color: var(--orange);
+    background: rgba(255,87,34,0.04);
+  }
+  .star-btn.active {
+    border-color: var(--orange);
+    background: rgba(255,87,34,0.07);
+  }
+  .star-btn svg {
+    width: 19px; height: 19px;
+    fill: none; stroke: var(--grey-300);
+    stroke-width: 1.8;
+    transition: stroke 0.15s, fill 0.15s;
+  }
+  .star-btn:hover svg, .star-btn.active svg {
+    stroke: var(--orange);
+    fill: rgba(255,87,34,0.18);
+  }
+  .star-label {
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px; color: var(--grey-300);
+    transition: color 0.15s;
+  }
+  .star-btn:hover .star-label, .star-btn.active .star-label { color: var(--orange); }
+
+  .rating-caption {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: var(--grey-300);
+    min-height: 18px; transition: color 0.2s;
+  }
+  .rating-caption.lit { color: var(--orange); }
+
+  /* Inputs */
+  textarea, input[type="text"], input[type="email"] {
+    width: 100%;
+    background: var(--white);
+    border: 0.5px solid var(--grey-200);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px; font-weight: 400;
+    color: var(--black);
+    outline: none;
+    transition: border-color 0.2s;
+    line-height: 1.6;
+  }
+  textarea::placeholder, input::placeholder { color: var(--grey-300); }
+  textarea:focus, input:focus { border-color: var(--orange); }
+  textarea { resize: none; min-height: 112px; display: block; }
+
+  .char-count {
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; color: var(--grey-300);
+    text-align: right; margin-top: 6px;
+  }
+
+  .name-row {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 10px; margin-bottom: 10px;
+  }
+
+  /* Optional badge */
+  .optional-tag {
+    display: inline-block;
+    background: var(--peach);
+    color: #7D3A1A;
+    font-family: 'Geist Mono', monospace;
+    font-size: 9px; letter-spacing: 0.1em;
+    padding: 3px 10px; border-radius: 20px;
+    margin-left: 8px; vertical-align: middle;
+  }
+
+  /* Submit */
+  .btn-submit {
+    width: 100%;
+    padding: 17px;
+    background: var(--orange);
+    border: none; border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700; font-size: 15px;
+    color: var(--white); cursor: pointer;
+    letter-spacing: -0.2px;
+    transition: background 0.15s, transform 0.12s;
+    margin-top: 8px;
+  }
+  .btn-submit:hover { background: #e04a1c; transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { background: var(--grey-300); cursor: not-allowed; transform: none; }
+
+  /* Error / loading states */
+  .error-msg {
+    font-family: 'Geist Mono', monospace;
+    font-size: 11px; color: #D32F2F;
+    margin-top: 8px; display: none;
+  }
+  .spinner {
+    display: inline-block; width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle; margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Footer */
+  .footer {
+    text-align: center; margin-top: 32px;
+    font-family: 'Geist Mono', monospace;
+    font-size: 10px; color: var(--grey-200);
+    letter-spacing: 0.08em;
+  }
+
+  /* Success screen */
+  #success-screen {
+    display: none;
+    text-align: center; padding: 60px 24px;
+  }
+  .success-circle {
+    width: 68px; height: 68px;
+    background: rgba(255,87,34,0.08);
+    border: 0.5px solid var(--orange);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 28px;
+  }
+  .success-circle svg {
+    width: 28px; height: 28px;
+    stroke: var(--orange); fill: none; stroke-width: 2.2;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+  .success-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 800; font-size: 34px;
+    color: var(--black); letter-spacing: -1.2px;
+    margin-bottom: 14px; line-height: 1.0;
+  }
+  .success-title span { color: var(--orange); }
+  .success-body {
+    font-size: 13px; font-weight: 300;
+    color: var(--grey-400); line-height: 1.75;
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 32px; }
+    .name-row { grid-template-columns: 1fr; }
+    .card { padding: 22px 18px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="logo-row">
+    <div class="logo-dot"></div>
+    <div class="logo-word">DigiiMark</div>
+  </div>
+
+  <div id="form-screen">
+    <div class="eyebrow">Client Testimonial · 2026</div>
+    <h1>Your signal.<br><span>Our fuel.</span></h1>
+    <p class="subhead">No fluff. Three direct questions. Your answers sharpen the engine.</p>
+    <div class="divider"></div>
+
+    <div class="progress-bar">
+      <div class="pb-seg" id="pb1"></div>
+      <div class="pb-seg" id="pb2"></div>
+      <div class="pb-seg" id="pb3"></div>
+    </div>
+
+    <!-- 01 Rating -->
+    <div class="card">
+      <div class="card-top-line"></div>
+      <div class="card-num">01 · RATING</div>
+      <div class="card-title">How do we measure up?</div>
+      <div class="card-hint">Rate your overall experience working with DigiiMark.</div>
+      <div class="stars" id="star-row">
+        <button type="button" class="star-btn" data-v="1" onclick="setRating(1)" aria-label="1 star">
+          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <span class="star-label">1</span>
+        </button>
+        <button type="button" class="star-btn" data-v="2" onclick="setRating(2)" aria-label="2 stars">
+          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <span class="star-label">2</span>
+        </button>
+        <button type="button" class="star-btn" data-v="3" onclick="setRating(3)" aria-label="3 stars">
+          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <span class="star-label">3</span>
+        </button>
+        <button type="button" class="star-btn" data-v="4" onclick="setRating(4)" aria-label="4 stars">
+          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <span class="star-label">4</span>
+        </button>
+        <button type="button" class="star-btn" data-v="5" onclick="setRating(5)" aria-label="5 stars">
+          <svg viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          <span class="star-label">5</span>
+        </button>
+      </div>
+      <div class="rating-caption" id="rating-caption">Select a rating</div>
+    </div>
+
+    <!-- 02 Feedback -->
+    <div class="card">
+      <div class="card-top-line"></div>
+      <div class="card-num">02 · FEEDBACK</div>
+      <div class="card-title">What moved the needle?</div>
+      <div class="card-hint">Tell us what delivered real value. Concrete beats polite.</div>
+      <textarea id="feedback" maxlength="500" placeholder="The automation system shipped ahead of schedule and reduced our manual ops by 60%…" oninput="onInput()"></textarea>
+      <div class="char-count"><span id="fc">0</span> / 500</div>
+    </div>
+
+    <!-- 03 Suggestion -->
+    <div class="card">
+      <div class="card-top-line"></div>
+      <div class="card-num">03 · SUGGESTION</div>
+      <div class="card-title">What's the gap? <span class="optional-tag">OPTIONAL</span></div>
+      <div class="card-hint">Where can the system improve? No sugar-coating required.</div>
+      <textarea id="suggestion" maxlength="400" placeholder="Faster onboarding documentation would compress the first-sprint timeline…" oninput="onInput()"></textarea>
+      <div class="char-count"><span id="sc">0</span> / 400</div>
+    </div>
+
+    <!-- 04 Identity -->
+    <div class="card">
+      <div class="card-top-line"></div>
+      <div class="card-num">04 · IDENTITY</div>
+      <div class="card-title">Who's signaling?</div>
+      <div class="card-hint">So we can attribute your results accurately.</div>
+      <div class="name-row">
+        <input type="text" id="first-name" placeholder="First name" />
+        <input type="text" id="last-name" placeholder="Last name" />
+      </div>
+      <input type="email" id="email" placeholder="your@email.com" style="margin-bottom:0;" />
+    </div>
+
+    <div class="error-msg" id="err-msg">Please complete all required fields before submitting.</div>
+
+    <button class="btn-submit" id="submit-btn" onclick="submitForm()">
+      Submit Testimonial →
+    </button>
+  </div>
+
+  <!-- Success -->
+  <div id="success-screen">
+    <div class="success-circle">
+      <svg viewBox="0 0 24 24"><polyline points="20,6 9,17 4,12"/></svg>
+    </div>
+    <div class="success-title">Signal<br><span>received.</span></div>
+    <p class="success-body">Your feedback is in the engine.<br>We'll put it to work. Thank you.</p>
+  </div>
+
+  <div class="footer">DIGIIMARK · DISCOVER@DIGIIMARK.COM · VANCOUVER, BC</div>
+</div>
+
+<script>
+  var rating = 0;
+  var captions = ['','Below expectations','Needs improvement','Meets the brief','Strong delivery','Engineered to perfection'];
+
+  // Pre-fill email from URL ?email=... param
+  (function() {
+    var params = new URLSearchParams(window.location.search);
+    var e = params.get('email');
+    var fn = params.get('name') || params.get('first_name');
+    if (e) document.getElementById('email').value = e;
+    if (fn) document.getElementById('first-name').value = fn;
+  })();
+
+  function setRating(val) {
+    rating = val;
+    document.querySelectorAll('.star-btn').forEach(function(btn, i) {
+      btn.classList.toggle('active', i < val);
+    });
+    var cap = document.getElementById('rating-caption');
+    cap.textContent = val + ' / 5 — ' + captions[val];
+    cap.classList.add('lit');
+    updateProgress();
+  }
+
+  function onInput() {
+    document.getElementById('fc').textContent = document.getElementById('feedback').value.length;
+    document.getElementById('sc').textContent = document.getElementById('suggestion').value.length;
+    updateProgress();
+  }
+
+  function updateProgress() {
+    var p1 = rating > 0;
+    var p2 = document.getElementById('feedback').value.trim().length > 0;
+    var p3 = document.getElementById('suggestion').value.trim().length > 0;
+    document.getElementById('pb1').className = 'pb-seg' + (p1 ? ' on' : '');
+    document.getElementById('pb2').className = 'pb-seg' + (p2 ? ' on' : '');
+    document.getElementById('pb3').className = 'pb-seg' + (p3 ? ' on' : '');
+  }
+
+  function submitForm() {
+    var fb = document.getElementById('feedback').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var err = document.getElementById('err-msg');
+
+    if (!rating || !fb || !email) {
+      err.style.display = 'block';
+      err.textContent = !rating ? 'Please select a rating.' : !fb ? 'Please add your feedback.' : 'Please enter your email address.';
+      return;
+    }
+    err.style.display = 'none';
+
+    var btn = document.getElementById('submit-btn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Submitting…';
+
+    var payload = {
+      rating: rating,
+      feedback: fb,
+      suggestion: document.getElementById('suggestion').value.trim(),
+      first_name: document.getElementById('first-name').value.trim(),
+      last_name: document.getElementById('last-name').value.trim(),
+      email: email
+    };
+
+    // POST to Workflow B webhook — replace with your actual webhook URL
+    var WEBHOOK_URL = 'https://amk012.app.n8n.cloud/webhook/testimonial-submit';
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+    .then(function() {
+      document.getElementById('form-screen').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.innerHTML = 'Submit Testimonial →';
+      err.style.display = 'block';
+      err.textContent = 'Something went wrong. Please try again.';
+    });
+  }
+</script>
+</body>
+</html>
